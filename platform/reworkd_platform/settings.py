@@ -56,6 +56,9 @@ class Settings(BaseSettings):
     openai_api_key: str = "<Should be updated via env>"
     secondary_openai_api_key: Optional[str] = None
 
+    helicone_api_base: str = "https://oai.hconeai.com/v1"
+    helicone_api_key: Optional[str] = None
+
     # Azure OpenAI
     azure_openai_api_version: str = "2023-06-01-preview"
     azure_openai_api_key: str = ""
@@ -113,6 +116,11 @@ class Settings(BaseSettings):
     slack_client_secret: str = ""
     slack_redirect_uri: str = ""
 
+    # Settings for sid
+    sid_client_id: Optional[str] = None
+    sid_client_secret: Optional[str] = None
+    sid_redirect_uri: Optional[str] = None
+
     # Settings for s3
     s3_bucket_name: str = "changeme"
 
@@ -168,6 +176,25 @@ class Settings(BaseSettings):
                 self.azure_openai_deployment_name,
                 self.azure_openai_api_version,
                 self.azure_openai_api_key,
+            ]
+        )
+
+    @property
+    def helicone_enabled(self) -> bool:
+        return all(
+            [
+                self.helicone_api_base,
+                self.helicone_api_key,
+            ]
+        )
+
+    @property
+    def sid_enabled(self) -> bool:
+        return all(
+            [
+                self.sid_client_id,
+                self.sid_client_secret,
+                self.sid_redirect_uri,
             ]
         )
 

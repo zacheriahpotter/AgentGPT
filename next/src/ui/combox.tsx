@@ -1,11 +1,8 @@
 import { Combobox } from "@headlessui/react";
+import clsx from "clsx";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { HiCheck, HiChevronDown } from "react-icons/hi2";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 interface Props<T> {
   label: string;
@@ -32,7 +29,7 @@ const Combo = <T,>({ items, ...props }: Props<T>) => {
       </Combobox.Label>
       <div className="relative mt-1">
         <Combobox.Input
-          className="border-hover-1 background-color-7 text-color-primary border-style-1 border-focusVisible-1 w-full rounded-md py-1.5 pl-3 pr-10 shadow-sm transition-colors sm:text-sm sm:leading-6"
+          className="border-hover-1 text-color-primary border-style-1 border-focusVisible-1 background-color-7 w-full rounded-md py-1.5 pl-3 pr-10 shadow-sm transition-colors sm:text-sm sm:leading-6"
           onChange={(event) => setQuery(event.target.value)}
           displayValue={(e) => props.valueMapper(e as T)}
         />
@@ -41,13 +38,13 @@ const Combo = <T,>({ items, ...props }: Props<T>) => {
         </Combobox.Button>
 
         {filtered.length > 0 && (
-          <Combobox.Options className="background-color-7 text-color-primary absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+          <Combobox.Options className="text-color-primary background-color-7 absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
             {filtered.map((e, i) => (
               <Combobox.Option
                 key={i}
                 value={e}
                 className={({ active }) =>
-                  classNames(
+                  clsx(
                     "relative cursor-default select-none py-2 pl-3 pr-9 ",
                     active
                       ? "bg-blue-hover-light text-white dark:bg-blue-hover-dark"
@@ -57,13 +54,13 @@ const Combo = <T,>({ items, ...props }: Props<T>) => {
               >
                 {({ selected }) => (
                   <>
-                    <span className={classNames("block truncate", selected && "font-semibold")}>
+                    <span className={clsx("block truncate", selected && "font-semibold")}>
                       {props.valueMapper(e)}
                     </span>
 
                     {selected && (
                       <span
-                        className={classNames(
+                        className={clsx(
                           "text-color-primary absolute inset-y-0 right-0 flex items-center pr-4"
                         )}
                       >

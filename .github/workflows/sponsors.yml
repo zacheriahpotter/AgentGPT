@@ -1,4 +1,4 @@
-name: Generate Sponsors README
+Node.jsname: Generate Sponsors README
 on:
   workflow_dispatch:
   schedule:
